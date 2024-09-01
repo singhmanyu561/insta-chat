@@ -46,9 +46,9 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
     return <>{children}</>;
   }
   return (
-    <div className="flex lg:flex-row flex-col gap-5">
+    <div className="flex lg:flex-row flex-col gap-3">
       <Sidebar />
-      <div className="p-10 flex-1">{children}</div>
+      <div className="py-10 flex-1 px-7">{children}</div>
     </div>
   );
 }

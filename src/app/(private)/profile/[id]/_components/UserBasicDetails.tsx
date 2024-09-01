@@ -14,14 +14,14 @@ const UserBasicDetails = ({ user }: { user: UserType }) => {
     <div className="flex gap-10 lg:items-center lg:flex-row flex-col lg:px-5">
       <div>
         <img
-          src={user.profilePic}
+          src={user?.profilePic}
           alt="profile-pic"
           className="h-32 w-32 rounded-full object-cover"
         />
       </div>
       <div className="flex flex-col gap-3">
         <div className="flex gap-5">
-          <span className="text-primary font-bold text-xl">{user.name}</span>
+          <span className="text-primary font-bold text-xl">{user?.name}</span>
           {showEditProfile && (
             <Button
               type="primary"
@@ -33,17 +33,17 @@ const UserBasicDetails = ({ user }: { user: UserType }) => {
             </Button>
           )}
         </div>
-        <div className="flex gap-5 text-gray-500 text-sm">
+        <div className="flex gap-5 text-gray-500 text-sm font-bold">
           <div className="flex gap-1">
             <span>0</span>
             <span>Posts</span>
           </div>
           <div className="flex gap-1">
-            <span>{user.followers.length}</span>
+            <span>{user?.followers?.length}</span>
             <span className="underline cursor-pointer">Followers</span>
           </div>
           <div className="flex gap-1">
-            <span>{user.following.length}</span>
+            <span>{user?.following?.length}</span>
             <span className="underline cursor-pointer">Following</span>
           </div>
         </div>
@@ -51,7 +51,13 @@ const UserBasicDetails = ({ user }: { user: UserType }) => {
           {user?.bio || "This user has no bio yet"}
         </p>
       </div>
-      {showEditProfileModal && (<EditProfileModal user={user} showEditProfileModal={showEditProfileModal} setShowEditProfileModal={setShowEditProfileModal}/>)}
+      {showEditProfileModal && (
+        <EditProfileModal
+          user={user}
+          showEditProfileModal={showEditProfileModal}
+          setShowEditProfileModal={setShowEditProfileModal}
+        />
+      )}
     </div>
   );
 };

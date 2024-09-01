@@ -7,6 +7,7 @@ import { message } from "antd";
 import { revalidatePath } from "next/cache";
 
 connectToMongoDB();
+
 export const saveUser = async (payload: any) => {
   try {
     const user = new UserModel(payload);
@@ -86,6 +87,24 @@ export const updateUserProfile = async ({
     return {
       success: true,
       message: "User updated successfully",
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message,
+    };
+  }
+};
+
+export const searchUsers = async (searchValue: string) => {
+  try {
+    const users = await UserModel.find({
+      name: { $regex: searchValue, $options: "i" },
+    });
+
+    return {
+      success: true,
+      data: JSON.parse(JSON.stringify(users)),
     };
   } catch (error: any) {
     return {
