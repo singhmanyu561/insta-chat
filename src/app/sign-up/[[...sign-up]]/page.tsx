@@ -1,4 +1,5 @@
 import { SignUp } from "@clerk/nextjs";
+import chitChat from "../../../../public/chit-chat.jpg"
 
 export default function signUpPage() {
   return (
@@ -7,7 +8,7 @@ export default function signUpPage() {
         <div className="p-2">
           <div className="flex justify-center">
             <img
-              src="https://yt3.googleusercontent.com/ytc/AIdro_lEHROLESqfi5ufqdVIm64if9bYf6vjye-uXbD5y2fL2A=s900-c-k-c0x00ffffff-no-rj"
+               src={chitChat.src}
               alt="chit-chat-image"
               className="h-24"
             />

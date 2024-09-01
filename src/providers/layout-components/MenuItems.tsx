@@ -1,13 +1,17 @@
 import React from "react";
 import { Bell, Home, LogOut, Search, User } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@clerk/nextjs";
+import { UsersStoreType, useUsersStore } from "@/store/users";
 
 function MenuItems() {
   const iconSize = 20;
   const pathName = usePathname();
   const router = useRouter();
+  const params = useParams();
   const { signOut } = useAuth();
+  const { loggedInUserData }: UsersStoreType = useUsersStore() as any;
+
   const menuItems = [
     {
       name: "Home",
@@ -24,8 +28,8 @@ function MenuItems() {
     {
       name: "Profile",
       icon: <User size={iconSize} />,
-      path: "/profile",
-      isActive: pathName === "/profile",
+      path: `/profile/${loggedInUserData?._id}`,
+      isActive: pathName === `/profile/${params.id}`,
     },
     {
       name: "Notifications",
@@ -51,7 +55,7 @@ function MenuItems() {
         <span className="text-2xl font-bold text-info">
           INSTA <b className="text-primary">CHAT</b>
         </span>
-        <span className="text-sm">Logged-in username</span>
+        <span className="text-sm">{loggedInUserData?.name}</span>
       </div>
       <div className="mt-20 flex flex-col gap-10">
         {menuItems.map((item, index) => (
