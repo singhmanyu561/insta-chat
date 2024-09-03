@@ -1,6 +1,7 @@
 import { getUserInfoById } from "@/server-actions/users";
 import React from "react";
 import UserBasicDetails from "./_components/UserBasicDetails";
+import PendingFollowRequests from "./_components/PendingFollowRequests";
 
 const Profile = async ({
   params,
@@ -11,7 +12,12 @@ const Profile = async ({
 }) => {
   const userInfoResponse = await getUserInfoById(params.id);
   const userInfo = userInfoResponse.data;
-  return <div><UserBasicDetails user={userInfo}/></div>;
+  return (
+    <div>
+      <UserBasicDetails user={userInfo} />
+      <PendingFollowRequests user={userInfo} />
+    </div>
+  );
 };
 
 export default Profile;

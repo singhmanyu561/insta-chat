@@ -113,3 +113,23 @@ export const searchUsers = async (searchValue: string) => {
     };
   }
 };
+
+export const getFollowRequestsReceived = async (userId: string) => {
+  try {
+    const userWithFollowRequests = await UserModel.findById(userId).populate(
+      "followRequestReceived"
+    );
+
+    return {
+      success: true,
+      data: JSON.parse(
+        JSON.stringify(userWithFollowRequests?.followRequestReceived)
+      ),
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message,
+    };
+  }
+};

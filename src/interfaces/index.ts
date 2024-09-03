@@ -6,7 +6,7 @@ export interface UserType {
     profilePic: string;
     followers: string[];
     following: string[];
-    followRequetsSent: string[];
+    followRequestSent: string[];
     followRequestsReceived: string[];
     isPrivateAccount: boolean;
     createdAt: string;
