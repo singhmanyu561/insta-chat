@@ -9,12 +9,16 @@ import {
   sendFollowRequest,
   unFollowUser,
 } from "@/server-actions/followRequests";
+import FollowersModal from "./FollowersModal";
+import FollowingModal from "./FollowingModal";
 
 const UserBasicDetails = ({ user }: { user: UserType }) => {
   const [loading, setLoading] = useState<
     "sending-follow-request" | "cancel-follow-request" | "unfollow-request" | ""
   >("");
   const [showEditProfileModal, setShowEditProfileModal] = useState(false);
+  const [showFollowingModal, setShowFollowingModal] = useState(false);
+  const [showFollowersModal, setShowFollowersModal] = useState(false);
   const { loggedInUserData, setLoggedInUserData }: UsersStoreType =
     useUsersStore();
   const showEditProfile = user?._id === loggedInUserData?._id;
@@ -28,6 +32,11 @@ const UserBasicDetails = ({ user }: { user: UserType }) => {
     user?._id !== loggedInUserData?._id &&
     !followRequestSent &&
     !alreadyFollowing;
+
+  const canSeeFollowersAndFollowing =
+    loggedInUserData?._id === user._id ||
+    (user.isPrivateAccount && alreadyFollowing) ||
+    !user.isPrivateAccount;
 
   const followHandler = async () => {
     try {
@@ -155,18 +164,32 @@ const UserBasicDetails = ({ user }: { user: UserType }) => {
             </div>
           )}
         </div>
-        <div className="flex gap-5 text-gray-500 text-sm font-bold">
+        <div className="flex gap-10 text-gray-500 text-sm font-bold">
           <div className="flex gap-1">
             <span>0</span>
             <span>Posts</span>
           </div>
           <div className="flex gap-1">
             <span>{user?.followers?.length}</span>
-            <span className="underline cursor-pointer">Followers</span>
+            <span
+              className="underline cursor-pointer"
+              onClick={() => {
+                if (canSeeFollowersAndFollowing) setShowFollowersModal(true);
+              }}
+            >
+              Followers
+            </span>
           </div>
           <div className="flex gap-1">
             <span>{user?.following?.length}</span>
-            <span className="underline cursor-pointer">Following</span>
+            <span
+              className="underline cursor-pointer"
+              onClick={() => {
+                if (canSeeFollowersAndFollowing) setShowFollowingModal(true);
+              }}
+            >
+              Following
+            </span>
           </div>
         </div>
         <p className="text-gray-500 text-sm">
@@ -178,6 +201,20 @@ const UserBasicDetails = ({ user }: { user: UserType }) => {
           user={user}
           showEditProfileModal={showEditProfileModal}
           setShowEditProfileModal={setShowEditProfileModal}
+        />
+      )}
+      {showFollowersModal && (
+        <FollowersModal
+          showFollowersModal={showFollowersModal}
+          setShowFollowersModal={setShowFollowersModal}
+          user={user}
+        />
+      )}
+      {showFollowingModal && (
+        <FollowingModal
+          showFollowingModal={showFollowingModal}
+          setShowFollowingModal={setShowFollowingModal}
+          user={user}
         />
       )}
     </div>

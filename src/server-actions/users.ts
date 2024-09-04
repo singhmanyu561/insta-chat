@@ -133,3 +133,39 @@ export const getFollowRequestsReceived = async (userId: string) => {
     };
   }
 };
+
+export const getFollowersOfUser = async (userId: string) => {
+  try {
+    const userWithFollowers = await UserModel.findById(userId).populate(
+      "followers"
+    );
+
+    return {
+      success: true,
+      data: JSON.parse(JSON.stringify(userWithFollowers?.followers)),
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message,
+    };
+  }
+};
+
+export const getFollowingOfUser = async (userId: string) => {
+  try {
+    const userWithFollowing = await UserModel.findById(userId).populate(
+      "following"
+    );
+
+    return {
+      success: true,
+      data: JSON.parse(JSON.stringify(userWithFollowing?.following)),
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message,
+    };
+  }
+};
