@@ -1,7 +1,7 @@
 "use server";
 
 import { connectToMongoDB } from "@/config/database";
-import UserModel from "@/models/user-model";
+import UserModel from "@/models/UserModel";
 import { revalidatePath } from "next/cache";
 
 connectToMongoDB();

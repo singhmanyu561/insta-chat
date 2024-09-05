@@ -1,7 +1,7 @@
 "use server";
 
 import { connectToMongoDB } from "@/config/database";
-import UserModel from "@/models/user-model";
+import UserModel from "@/models/UserModel";
 import { currentUser } from "@clerk/nextjs/server";
 import { message } from "antd";
 import { revalidatePath } from "next/cache";

@@ -11,4 +11,17 @@ export interface UserType {
     isPrivateAccount: boolean;
     createdAt: string;
   }
+export interface PostType {
+    _id: string;
+    user: UserType;
+    media: string[];
+    caption: string;
+    hashTags: string[];
+    tags: UserType[];
+    likedBy: UserType[];
+    commentsCount: number;
+    sharesCount: number;
+    isAchieved: boolean;
+    createdAt: string;
+  }
   
